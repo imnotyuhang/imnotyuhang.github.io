@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TopBar from "../../components/TopBar.astro";
+import EntryCard from "../../components/EntryCard.astro";
+
+const life = (await getCollection("life", ({ data }) => data.status === "published")).sort(
+  (a, b) => (b.data.updated ?? b.data.date).getTime() - (a.data.updated ?? a.data.date).getTime(),
+);
+---
+
+<BaseLayout title="Life | Yuhang Wu" active="life">
+  <TopBar label="Life" searchable />
+  <section class="intro-panel">
+    <p class="section-label">Life</p>
+    <h2>The parts that do not fit into a CV.</h2>
+    <p>Photos, travel, routines, sports, meditation, people, and small observations can live here over time.</p>
+  </section>
+  <section class="feed-section">
+    <div class="entry-feed">
+      {life.map((entry) => <EntryCard entry={entry} muted />)}
+    </div>
+  </section>
+</BaseLayout>

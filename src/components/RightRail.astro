@@ -1,0 +1,44 @@
+---
+import type { SiteEntry } from "../lib/content";
+import { entryHref } from "../lib/content";
+
+interface Props {
+  entries: SiteEntry[];
+}
+
+const { entries } = Astro.props;
+const recent = entries.slice(0, 4);
+const focusAreas = ["Applied AI Systems", "LLM Agents", "Data Science", "Computer Vision", "Robotics"];
+const filters = ["All", "Projects", "Notes", "Life", "LLM", "Vision", "Robotics"];
+const filterValue = (label: string) => {
+  if (label === "All") return "all";
+  if (label === "Projects") return "project";
+  if (label === "Notes") return "note";
+  return label.toLowerCase();
+};
+---
+
+<aside class="right-rail" aria-label="Site metadata">
+  <section class="rail-card">
+    <h2>Recently Updated</h2>
+    {recent.map((entry) => <a href={entryHref(entry)}>{entry.data.title}</a>)}
+  </section>
+
+  <section class="rail-card">
+    <h2>Focus Areas</h2>
+    <div class="focus-list">
+      {focusAreas.map((area) => <span>{area}</span>)}
+    </div>
+  </section>
+
+  <section class="rail-card">
+    <h2>Tags</h2>
+    <div class="filter-tags" data-filter-tags>
+      {filters.map((label) => (
+        <button type="button" class:list={[label === "All" && "is-active"]} data-filter={filterValue(label)}>
+          {label}
+        </button>
+      ))}
+    </div>
+  </section>
+</aside>

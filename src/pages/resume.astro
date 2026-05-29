@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ResumeSection from "../components/ResumeSection.astro";
+import profile from "../../content/resume/profile.json";
+---
+
+<BaseLayout title="Resume | Yuhang Wu" active="resume" detail contentClass="detail-content">
+  <article class="detail-article">
+    <header class="detail-hero">
+      <p class="section-label">Resume</p>
+      <h2>{profile.name}</h2>
+      <p>{profile.summary}</p>
+      <div class="detail-actions">
+        <a class="button primary" href={profile.cv} target="_blank" rel="noreferrer">Download CV</a>
+        <a class="button secondary" href={`mailto:${profile.email}`}>Email</a>
+        <a class="button ghost" href="/">Back Home</a>
+      </div>
+    </header>
+
+    <ResumeSection title="Experience">
+      {profile.experience.map((item) => (
+        <div class="resume-item">
+          <div class="entry-meta">
+            <span>{item.company} - {item.role}</span>
+            <span>{item.period}</span>
+          </div>
+          <p>{item.summary}</p>
+          <ul>
+            {item.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        </div>
+      ))}
+    </ResumeSection>
+
+    <ResumeSection title="Core Competencies">
+      <div class="skill-grid compact-skills">
+        {profile.skills.map((skill) => (
+          <article>
+            <h4>{skill.name}</h4>
+            <p>{skill.items}</p>
+          </article>
+        ))}
+      </div>
+    </ResumeSection>
+
+    <ResumeSection title="Education">
+      {profile.education.map((item) => (
+        <div class="resume-item">
+          <div class="entry-meta">
+            <span>{item.school} - {item.degree}</span>
+            <span>{item.period}</span>
+          </div>
+          <p>{item.details}</p>
+        </div>
+      ))}
+    </ResumeSection>
+  </article>
+</BaseLayout>

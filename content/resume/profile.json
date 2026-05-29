@@ -1,0 +1,64 @@
+{
+  "name": "Yuhang Wu",
+  "email": "yuhangywu@gmail.com",
+  "location": "Singapore",
+  "linkedin": "https://www.linkedin.com/in/yuhang-wu-146749320",
+  "cv": "/assets/YUHANG_CV_SG.pdf",
+  "summary": "Background in Data Science, AI Agent Systems, and AI/ML applications, with experience across anomaly detection, user behavior modeling, intelligent reporting, computer vision, and multimodal workflows.",
+  "experience": [
+    {
+      "company": "Tencent Singapore",
+      "role": "Tech / Data & AI Intern, IEG Global",
+      "period": "2025.11 - 2026.06",
+      "summary": "Built and deployed domain-specific LLM / AI agents for game operations scenarios, including anomaly discovery, attribution analysis, trend interpretation, and conclusion generation.",
+      "bullets": [
+        "Participated in modular agent framework design around memory, skills, and tool-calling workflows.",
+        "Developed anomaly detection and automated alerting for core game operation metrics.",
+        "Built large-scale data pipelines using SQL, PySpark, BigQuery, and StarRocks."
+      ]
+    },
+    {
+      "company": "Didi Global Inc.",
+      "role": "Tech / Algorithm Intern, Marketplace Technology",
+      "period": "2025.05 - 2025.08",
+      "summary": "Worked on first-order passenger conversion optimization for Didi Hitch across exposure, acceptance, and trip completion stages.",
+      "bullets": [
+        "Built TensorFlow multi-task learning models with an ESMM-based CTV, CVR, and CTCVR framework.",
+        "Applied Bayesian uncertainty weighting and Focal Loss for sparse and imbalanced stages.",
+        "Processed large-scale user behavior and transaction data with Hadoop and PySpark."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Data Science & Modeling",
+      "items": "Python, SQL, PySpark, statistical analysis, feature engineering, anomaly detection."
+    },
+    {
+      "name": "LLM Applications",
+      "items": "LangChain, MCP, LLM agents, tool-calling workflows, structured output parsing, basic RAG."
+    },
+    {
+      "name": "Deep Learning & CV",
+      "items": "PyTorch, TensorFlow, CNNs, object detection, video understanding, pose estimation."
+    },
+    {
+      "name": "Product & Business",
+      "items": "Requirement decomposition, workflow productization, cross-functional communication."
+    }
+  ],
+  "education": [
+    {
+      "school": "National University of Singapore",
+      "degree": "MSc, Biomedical Engineering",
+      "period": "2025.08 - 2026.06",
+      "details": "Advanced Machine Learning, Robotic Intelligence, Computational Methods, Medical Imaging Systems."
+    },
+    {
+      "school": "Beijing Institute of Technology",
+      "degree": "BEng, Biomedical Engineering",
+      "period": "2021.08 - 2025.06",
+      "details": "Signal analysis, probability and statistics, machine learning and AI, digital circuit systems."
+    }
+  ]
+}

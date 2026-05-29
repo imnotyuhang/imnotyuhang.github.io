@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TagList from "../../components/TagList.astro";
+import Toc from "../../components/Toc.astro";
+import { formatDate } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => data.status === "published");
+  return projects.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} | Yuhang Wu`} active="projects" detail contentClass="detail-content">
+  <article class="detail-article">
+    <header class="detail-hero">
+      <p class="section-label">Project / {entry.data.role ?? "Case Study"}</p>
+      <h2>{entry.data.title}</h2>
+      <p>{entry.data.summary}</p>
+      <div class="entry-meta">
+        <span>{formatDate(entry.data.updated ?? entry.data.date)}</span>
+        <span>{entry.data.tools.join(" / ")}</span>
+      </div>
+      <TagList tags={entry.data.tags} />
+    </header>
+
+    {entry.data.problem && (
+      <section class="detail-section">
+        <h3>Problem</h3>
+        <p>{entry.data.problem}</p>
+      </section>
+    )}
+    {entry.data.approach && (
+      <section class="detail-section">
+        <h3>Approach</h3>
+        <p>{entry.data.approach}</p>
+      </section>
+    )}
+    {entry.data.result && (
+      <section class="detail-section">
+        <h3>Result</h3>
+        <p>{entry.data.result}</p>
+      </section>
+    )}
+    {entry.data.next && (
+      <section class="detail-section">
+        <h3>Next</h3>
+        <p>{entry.data.next}</p>
+      </section>
+    )}
+    <section class="detail-section article-body">
+      <Content />
+    </section>
+  </article>
+  <Toc slot="rail" headings={headings} />
+</BaseLayout>

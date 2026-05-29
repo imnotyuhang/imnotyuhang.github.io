@@ -1,0 +1,41 @@
+---
+interface Props {
+  active?: "home" | "projects" | "notes" | "life" | "resume";
+}
+
+const { active = "home" } = Astro.props;
+
+const nav = [
+  { id: "home", href: "/", label: "Home" },
+  { id: "projects", href: "/projects/", label: "Projects" },
+  { id: "notes", href: "/notes/", label: "Notes" },
+  { id: "life", href: "/life/", label: "Life" },
+  { id: "resume", href: "/resume/", label: "Resume" },
+];
+---
+
+<aside class="sidebar" id="sidebar" aria-label="Site sidebar" data-sidebar>
+  <a class="profile-photo-link" href="/" aria-label="Yuhang's Web Space home">
+    <img class="profile-photo" src="/assets/yuhang.jpg" alt="Yuhang Wu" />
+  </a>
+  <div class="profile-copy">
+    <p class="profile-kicker">Personal web space</p>
+    <h1><a href="/">Yuhang Wu</a></h1>
+    <p>
+      I build AI/data systems, write about things I am learning, and collect projects,
+      thoughts, and fragments of life here.
+    </p>
+  </div>
+
+  <nav class="side-nav" aria-label="Main navigation">
+    {nav.map((item) => (
+      <a class:list={[active === item.id && "is-active"]} href={item.href}>{item.label}</a>
+    ))}
+  </nav>
+
+  <div class="sidebar-actions" aria-label="Contact links">
+    <a href="mailto:yuhangywu@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/yuhang-wu-146749320" target="_blank" rel="noreferrer">LinkedIn</a>
+    <a href="/assets/YUHANG_CV_SG.pdf" target="_blank" rel="noreferrer">CV</a>
+  </div>
+</aside>

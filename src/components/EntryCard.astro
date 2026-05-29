@@ -1,0 +1,38 @@
+---
+import type { SiteEntry } from "../lib/content";
+import { entryHref, entryDate, formatDate } from "../lib/content";
+import TagList from "./TagList.astro";
+
+interface Props {
+  entry: SiteEntry;
+  muted?: boolean;
+}
+
+const { entry, muted = false } = Astro.props;
+const data = entry.data;
+const searchable = [
+  data.title,
+  data.summary,
+  data.type,
+  ...data.tags,
+].join(" ").toLowerCase();
+---
+
+<article
+  class:list={["entry-card", data.featured && "is-featured", muted && "is-muted"]}
+  data-entry
+  data-category={data.type}
+  data-tags={searchable}
+>
+  <a href={entryHref(entry)} aria-label={`Read ${data.title}`}>
+    <div class="entry-body">
+      <div class="entry-meta">
+        <span>{data.type.charAt(0).toUpperCase() + data.type.slice(1)}</span>
+        <time datetime={entryDate(entry).toISOString()}>{formatDate(entryDate(entry))}</time>
+      </div>
+      <h3>{data.title}</h3>
+      <p>{data.summary}</p>
+      <TagList tags={data.tags} />
+    </div>
+  </a>
+</article>

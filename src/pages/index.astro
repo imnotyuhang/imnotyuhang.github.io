@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TopBar from "../components/TopBar.astro";
+import EntryCard from "../components/EntryCard.astro";
+import RightRail from "../components/RightRail.astro";
+import { getAllPublishedEntries } from "../lib/content";
+
+const entries = await getAllPublishedEntries();
+const projects = entries.filter((entry) => entry.data.type === "project");
+const notesAndLife = entries.filter((entry) => entry.data.type === "note" || entry.data.type === "life");
+---
+
+<BaseLayout title="Yuhang's Web Space" active="home">
+  <TopBar label="Home" searchable />
+
+  <section class="intro-panel" aria-labelledby="intro-title">
+    <p class="section-label">Hello</p>
+    <h2 id="intro-title">This is a room for what I build, study, notice, and keep coming back to.</h2>
+    <p>
+      Some pages are for recruiters. Some are for future me. The useful part is that they can live
+      in the same place: projects with technical depth, notes from learning, and small records of
+      how I see the world.
+    </p>
+  </section>
+
+  <section class="feed-section" id="projects" aria-labelledby="projects-title">
+    <div class="section-heading">
+      <p class="section-label">Featured Projects</p>
+      <h2 id="projects-title">Things I have built or shaped.</h2>
+    </div>
+    <div class="entry-feed" data-entry-list>
+      {projects.map((entry) => <EntryCard entry={entry} />)}
+    </div>
+  </section>
+
+  <section class="feed-section" id="notes" aria-labelledby="notes-title">
+    <div class="section-heading">
+      <p class="section-label">Notes & Life</p>
+      <h2 id="notes-title">Working notes, technical fragments, and reflections.</h2>
+    </div>
+    <div class="entry-feed compact-feed">
+      {notesAndLife.map((entry) => <EntryCard entry={entry} muted={entry.data.type === "life"} />)}
+    </div>
+  </section>
+
+  <RightRail slot="rail" entries={entries} />
+</BaseLayout>

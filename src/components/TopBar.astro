@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  searchable?: boolean;
+}
+
+const { label, searchable = false } = Astro.props;
+---
+
+<header class="top-bar" aria-label="Page context">
+  <span>{label}</span>
+  {searchable && (
+    <label class="search-box">
+      <span class="sr-only">Search entries</span>
+      <input type="search" placeholder="Search projects, notes, tags..." data-search-input />
+    </label>
+  )}
+</header>

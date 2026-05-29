@@ -1,0 +1,34 @@
+---
+title: "YOLO-MedTrack"
+slug: "yolo-medtrack"
+type: "project"
+date: "2025-11-01"
+updated: "2026-05-29"
+summary: "A surgical video understanding pipeline for instrument instance segmentation, recognition, cross-frame tracking, and trajectory analysis."
+tags: ["YOLOv11-Seg", "ByteTrack", "Medical CV", "Surgical Video"]
+featured: true
+status: "published"
+role: "Medical Robotic Intelligence Project @ NUS"
+tools: ["Python", "YOLOv11-Seg", "ByteTrack", "MedTrack", "EndoVis 2018"]
+problem: "Robotic-assisted surgery videos contain instruments moving through low-contrast scenes with occlusion, scale variation, and changing viewpoints."
+approach: "I designed a tracking-by-detection pipeline that connects instance segmentation, class recognition, cross-frame association, and trajectory analysis."
+result: "Experiments used mAP, Dice, MOTA, ID switches, FPS, and latency to analyze detector-tracker accuracy-speed trade-offs."
+next: "Add architecture diagram, sample segmentation frames, training setup, evaluation table, and failure cases."
+links: []
+---
+
+## Problem
+
+Robotic-assisted surgery videos contain instruments moving through low-contrast scenes with occlusion, scale variation, and changing viewpoints. The task was framed as video instance segmentation: detect, segment, classify, track, and analyze instrument motion across frames.
+
+## Approach
+
+I designed a Python-based pipeline combining YOLOv11-Seg with ByteTrack / MedTrack-style tracking-by-detection. The system connects object detection, semantic segmentation, cross-frame association, and trajectory analysis to improve temporal consistency.
+
+## Evaluation
+
+Experiments used the EndoVis 2018 dataset and compared detector-tracker combinations through mAP, Dice, MOTA, ID switches, FPS, and latency to reason about accuracy-speed trade-offs.
+
+## Next Details To Add
+
+Architecture diagram, sample segmentation frames, training setup, evaluation table, and failure cases will make this page stronger once project materials are available.
