@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="YOLO-MedTrack project case study by Yuhang Wu.">
+    <title>YOLO-MedTrack | Yuhang Wu</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../script.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="sidebar" data-sidebar-toggle>
+      <span></span><span></span><span></span><span class="sr-only">Menu</span>
+    </button>
+    <div class="site-shell detail-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Site sidebar" data-sidebar>
+        <a class="profile-photo-link" href="../index.html"><img class="profile-photo" src="../assets/yuhang.jpg" alt="Yuhang Wu"></a>
+        <div class="profile-copy">
+          <p class="profile-kicker">Project note</p>
+          <h1><a href="../index.html">Yuhang Wu</a></h1>
+          <p>Projects, notes, and fragments from applied AI and data systems.</p>
+        </div>
+        <nav class="side-nav" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a class="is-active" href="../index.html#projects">Projects</a>
+          <a href="../index.html#notes">Notes</a>
+          <a href="../resume.html">Resume</a>
+        </nav>
+      </aside>
+      <main class="content detail-content" id="main">
+        <article class="detail-article">
+          <header class="detail-hero">
+            <p class="section-label">Project / Surgical Video Understanding</p>
+            <h2>YOLO-MedTrack</h2>
+            <p>
+              A real-time surgical instrument segmentation and tracking system built as a Medical Robotic
+              Intelligence project at NUS.
+            </p>
+            <div class="tag-list">
+              <span>YOLOv11-Seg</span>
+              <span>ByteTrack</span>
+              <span>MedTrack</span>
+              <span>EndoVis 2018</span>
+            </div>
+          </header>
+          <section class="detail-section">
+            <h3>Problem</h3>
+            <p>
+              Robotic-assisted surgery videos contain instruments moving through low-contrast scenes with occlusion,
+              scale variation, and changing viewpoints. The task was framed as video instance segmentation:
+              detect, segment, classify, track, and analyze instrument motion across frames.
+            </p>
+          </section>
+          <section class="detail-section">
+            <h3>Approach</h3>
+            <p>
+              I designed a Python-based pipeline combining YOLOv11-Seg with ByteTrack / MedTrack-style
+              tracking-by-detection. The system connects object detection, semantic segmentation, cross-frame
+              association, and trajectory analysis to improve temporal consistency.
+            </p>
+          </section>
+          <section class="detail-section">
+            <h3>Evaluation</h3>
+            <p>
+              Experiments used the EndoVis 2018 dataset and compared detector-tracker combinations through
+              mAP, Dice, MOTA, ID switches, FPS, and latency to reason about accuracy-speed trade-offs.
+            </p>
+          </section>
+          <section class="detail-section">
+            <h3>Next Details To Add</h3>
+            <p>
+              Architecture diagram, sample segmentation frames, training setup, evaluation table, and failure cases
+              will make this page stronger once project materials are available.
+            </p>
+          </section>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>

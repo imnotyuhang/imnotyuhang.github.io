@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Yuhang Wu's personal web space for AI/data projects, notes, thoughts, and fragments of life."
+    >
+    <title>Yuhang's Web Space</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="sidebar" data-sidebar-toggle>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+
+    <div class="site-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Site sidebar" data-sidebar>
+        <a class="profile-photo-link" href="index.html" aria-label="Yuhang's Web Space home">
+          <img class="profile-photo" src="assets/yuhang.jpg" alt="Yuhang Wu">
+        </a>
+        <div class="profile-copy">
+          <p class="profile-kicker">Personal web space</p>
+          <h1><a href="index.html">Yuhang Wu</a></h1>
+          <p>
+            I build AI/data systems, write about things I am learning, and collect projects,
+            thoughts, and fragments of life here.
+          </p>
+        </div>
+
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="is-active" href="index.html">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#notes">Notes</a>
+          <a href="#life">Life</a>
+          <a href="resume.html">Resume</a>
+        </nav>
+
+        <div class="sidebar-actions" aria-label="Contact links">
+          <a href="mailto:yuhangywu@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/yuhang-wu-146749320" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="assets/YUHANG_CV_SG.pdf" target="_blank" rel="noreferrer">CV</a>
+        </div>
+      </aside>
+
+      <main class="content" id="main">
+        <header class="top-bar" aria-label="Page context">
+          <span>Home</span>
+          <label class="search-box">
+            <span class="sr-only">Search entries</span>
+            <input type="search" placeholder="Search projects, notes, tags..." data-search-input>
+          </label>
+        </header>
+
+        <section class="intro-panel" aria-labelledby="intro-title">
+          <p class="section-label">Hello</p>
+          <h2 id="intro-title">This is a room for what I build, study, notice, and keep coming back to.</h2>
+          <p>
+            Some pages are for recruiters. Some are for future me. The useful part is that they can live
+            in the same place: projects with technical depth, notes from learning, and small records of
+            how I see the world.
+          </p>
+        </section>
+
+        <section class="feed-section" id="projects" aria-labelledby="projects-title">
+          <div class="section-heading">
+            <p class="section-label">Featured Projects</p>
+            <h2 id="projects-title">Things I have built or shaped.</h2>
+          </div>
+
+          <div class="entry-feed" data-entry-list>
+            <article class="entry-card is-featured" data-entry data-category="project" data-tags="ai agents llm analytics tencent operations">
+              <a href="projects/llm-applications.html" aria-label="Read Tencent AI agents project">
+                <div class="entry-body">
+                  <div class="entry-meta">
+                    <span>Project</span>
+                    <time datetime="2026-05">2026</time>
+                  </div>
+                  <h3>Tencent Game Operations AI Agents</h3>
+                  <p>
+                    Domain-specific LLM agents for anomaly discovery, attribution analysis, trend interpretation,
+                    and automated conclusion generation in game operations workflows.
+                  </p>
+                  <div class="tag-list">
+                    <span>LLM Agents</span>
+                    <span>Tool Calling</span>
+                    <span>Analytics</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article class="entry-card" data-entry data-category="project" data-tags="computer vision surgical video yolo tracking medical ai">
+              <a href="projects/yolo-medtrack.html" aria-label="Read YOLO-MedTrack project">
+                <div class="entry-body">
+                  <div class="entry-meta">
+                    <span>Project</span>
+                    <time datetime="2025-11">Nov 2025</time>
+                  </div>
+                  <h3>YOLO-MedTrack</h3>
+                  <p>
+                    A surgical video understanding pipeline for instrument instance segmentation, recognition,
+                    cross-frame tracking, and trajectory analysis.
+                  </p>
+                  <div class="tag-list">
+                    <span>YOLOv11-Seg</span>
+                    <span>ByteTrack</span>
+                    <span>Medical CV</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article class="entry-card" data-entry data-category="project" data-tags="robotics rehabilitation pose estimation mediapipe nus">
+              <a href="projects/robot-therapist.html" aria-label="Read Robot Therapist project">
+                <div class="entry-body">
+                  <div class="entry-meta">
+                    <span>Project</span>
+                    <time datetime="2025-04">Apr 2025</time>
+                  </div>
+                  <h3>Robot Therapist for Assisted Therapeutic Exercises</h3>
+                  <p>
+                    A rehabilitation system for upper-limb stroke therapy, combining robotic motion replay,
+                    pose estimation, trajectory tracking, and patient engagement analysis.
+                  </p>
+                  <div class="tag-list">
+                    <span>Robotics</span>
+                    <span>MediaPipe</span>
+                    <span>Rehabilitation</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article class="entry-card" data-entry data-category="project" data-tags="forecasting public health climate lstm arima data science">
+              <a href="projects/climate-health.html" aria-label="Read Climate-health project">
+                <div class="entry-body">
+                  <div class="entry-meta">
+                    <span>Project</span>
+                    <time datetime="2024-03">Mar 2024</time>
+                  </div>
+                  <h3>Climate-health Risk Forecasting</h3>
+                  <p>
+                    Extreme heat forecasting and health-risk analysis with LSTM-ARIMA, DLNM, GAM,
+                    incremental learning, and multi-city visualization.
+                  </p>
+                  <div class="tag-list">
+                    <span>Forecasting</span>
+                    <span>Public Health</span>
+                    <span>Visualization</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </div>
+        </section>
+
+        <section class="feed-section" id="notes" aria-labelledby="notes-title">
+          <div class="section-heading">
+            <p class="section-label">Notes</p>
+            <h2 id="notes-title">Working notes, technical fragments, and reflections.</h2>
+          </div>
+
+          <div class="entry-feed compact-feed">
+            <article class="entry-card" data-entry data-category="note" data-tags="personal systems ai data learning">
+              <a href="notes/first-note.html" aria-label="Read first note">
+                <div class="entry-body">
+                  <div class="entry-meta">
+                    <span>Note</span>
+                    <time datetime="2026-05-29">May 29, 2026</time>
+                  </div>
+                  <h3>Why this site exists</h3>
+                  <p>
+                    A small opening note for a website that is allowed to be more than a resume:
+                    part lab notebook, part archive, part personal room.
+                  </p>
+                  <div class="tag-list">
+                    <span>Personal</span>
+                    <span>Reflection</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article class="entry-card is-muted" data-entry data-category="life" data-tags="life photos travel sports meditation">
+              <a href="#life" aria-label="Life notes coming soon">
+                <div class="entry-body">
+                  <div class="entry-meta">
+                    <span>Life</span>
+                    <span>Collecting</span>
+                  </div>
+                  <h3>Life fragments will live here too</h3>
+                  <p>
+                    Photos, places, routines, sports, meditation, small observations, and things that
+                    make the technical work feel connected to a real life.
+                  </p>
+                  <div class="tag-list">
+                    <span>Life</span>
+                    <span>Photos</span>
+                    <span>Notes</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </div>
+        </section>
+
+        <section class="feed-section" id="life" aria-labelledby="life-title">
+          <div class="section-heading">
+            <p class="section-label">Life</p>
+            <h2 id="life-title">A placeholder for the parts that do not fit into a CV.</h2>
+          </div>
+          <div class="life-panel">
+            <p>
+              This section is intentionally open. When you send more photos or short memories, it can become
+              a visual archive: travel, sports, people, study exchange, public service, and small things worth
+              keeping.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="right-rail" aria-label="Site metadata">
+        <section class="rail-card">
+          <h2>Recently Updated</h2>
+          <a href="projects/llm-applications.html">Tencent Game Operations AI Agents</a>
+          <a href="projects/yolo-medtrack.html">YOLO-MedTrack</a>
+          <a href="resume.html">Resume</a>
+          <a href="notes/first-note.html">Why this site exists</a>
+        </section>
+
+        <section class="rail-card">
+          <h2>Focus Areas</h2>
+          <div class="focus-list">
+            <span>Applied AI Systems</span>
+            <span>LLM Agents</span>
+            <span>Data Science</span>
+            <span>Computer Vision</span>
+            <span>Robotics</span>
+          </div>
+        </section>
+
+        <section class="rail-card">
+          <h2>Tags</h2>
+          <div class="filter-tags" data-filter-tags>
+            <button type="button" class="is-active" data-filter="all">All</button>
+            <button type="button" data-filter="project">Projects</button>
+            <button type="button" data-filter="note">Notes</button>
+            <button type="button" data-filter="life">Life</button>
+            <button type="button" data-filter="llm">LLM</button>
+            <button type="button" data-filter="vision">Vision</button>
+            <button type="button" data-filter="robotics">Robotics</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </body>
+</html>
