@@ -292,11 +292,51 @@ li + li {
 .rail-card,
 .detail-article,
 .toc-card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
+}
+
+.intro-panel::before,
+.entry-card::before,
+.rail-card::before,
+.detail-article::before,
+.toc-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  background:
+    radial-gradient(
+      280px circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+      rgba(230, 111, 169, 0.16),
+      rgba(138, 134, 198, 0.08) 38%,
+      transparent 70%
+    );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.intro-panel:hover::before,
+.entry-card:hover::before,
+.rail-card:hover::before,
+.detail-article:hover::before,
+.toc-card:hover::before {
+  opacity: 1;
+}
+
+.intro-panel > *,
+.entry-card > *,
+.rail-card > *,
+.detail-article > *,
+.toc-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .intro-panel {

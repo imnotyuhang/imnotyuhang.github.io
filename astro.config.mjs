@@ -4,4 +4,7 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: "https://imnotyuhang.github.io",
   integrations: [mdx()],
+  devToolbar: {
+    enabled: false,
+  },
 });

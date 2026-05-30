@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Sidebar from "../components/Sidebar.astro";
 import "../styles/global.css";
 
@@ -27,11 +28,14 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="/assets/site-background.jpg" />
+    <link rel="preload" as="image" href="/assets/yuhang.jpg" />
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="sidebar" data-sidebar-toggle>
+    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="sidebar" data-sidebar-toggle transition:persist>
       <span></span>
       <span></span>
       <span></span>
@@ -47,66 +51,79 @@ const {
     </div>
 
     <script is:inline>
-      const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
-      const sidebar = document.querySelector("[data-sidebar]");
-      const searchInput = document.querySelector("[data-search-input]");
-      const entries = Array.from(document.querySelectorAll("[data-entry]"));
-      const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+      function initPageInteractions() {
+        const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
+        const sidebar = document.querySelector("[data-sidebar]");
+        const searchInput = document.querySelector("[data-search-input]");
+        const entries = Array.from(document.querySelectorAll("[data-entry]"));
+        const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+        const interactivePanels = Array.from(document.querySelectorAll(".intro-panel, .entry-card, .rail-card, .detail-article, .toc-card"));
 
-      let activeFilter = "all";
+        let activeFilter = "all";
 
-      function closeSidebar() {
-        if (!sidebarToggle || !sidebar) return;
-        sidebarToggle.setAttribute("aria-expanded", "false");
-        sidebar.classList.remove("is-open");
-      }
+        function closeSidebar() {
+          if (!sidebarToggle || !sidebar) return;
+          sidebarToggle.setAttribute("aria-expanded", "false");
+          sidebar.classList.remove("is-open");
+        }
 
-      if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener("click", () => {
-          const isOpen = sidebarToggle.getAttribute("aria-expanded") === "true";
-          sidebarToggle.setAttribute("aria-expanded", String(!isOpen));
-          sidebar.classList.toggle("is-open", !isOpen);
+        if (sidebarToggle && sidebar) {
+          sidebarToggle.addEventListener("click", () => {
+            const isOpen = sidebarToggle.getAttribute("aria-expanded") === "true";
+            sidebarToggle.setAttribute("aria-expanded", String(!isOpen));
+            sidebar.classList.toggle("is-open", !isOpen);
+          });
+
+          sidebar.addEventListener("click", (event) => {
+            if (event.target instanceof HTMLAnchorElement) closeSidebar();
+          });
+        }
+
+        function entryMatchesFilter(entry) {
+          if (activeFilter === "all") return true;
+          const category = entry.dataset.category || "";
+          const tags = entry.dataset.tags || "";
+          if (["project", "note", "life"].includes(activeFilter)) return category === activeFilter;
+          return category.includes(activeFilter) || tags.includes(activeFilter);
+        }
+
+        function entryMatchesSearch(entry, query) {
+          if (!query) return true;
+          return entry.textContent.toLowerCase().includes(query);
+        }
+
+        function updateEntries() {
+          const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+          entries.forEach((entry) => {
+            const isVisible = entryMatchesFilter(entry) && entryMatchesSearch(entry, query);
+            entry.classList.toggle("is-hidden", !isVisible);
+          });
+        }
+
+        if (searchInput && entries.length) {
+          searchInput.addEventListener("input", updateEntries);
+        }
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            activeFilter = button.dataset.filter || "all";
+            if (searchInput) searchInput.value = "";
+            filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+            updateEntries();
+          });
         });
 
-        sidebar.addEventListener("click", (event) => {
-          if (event.target instanceof HTMLAnchorElement) closeSidebar();
+        interactivePanels.forEach((panel) => {
+          panel.addEventListener("pointermove", (event) => {
+            const rect = panel.getBoundingClientRect();
+            panel.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+            panel.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
+          });
         });
       }
 
-      function entryMatchesFilter(entry) {
-        if (activeFilter === "all") return true;
-        const category = entry.dataset.category || "";
-        const tags = entry.dataset.tags || "";
-        if (["project", "note", "life"].includes(activeFilter)) return category === activeFilter;
-        return category.includes(activeFilter) || tags.includes(activeFilter);
-      }
-
-      function entryMatchesSearch(entry, query) {
-        if (!query) return true;
-        return entry.textContent.toLowerCase().includes(query);
-      }
-
-      function updateEntries() {
-        const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
-
-        entries.forEach((entry) => {
-          const isVisible = entryMatchesFilter(entry) && entryMatchesSearch(entry, query);
-          entry.classList.toggle("is-hidden", !isVisible);
-        });
-      }
-
-      if (searchInput && entries.length) {
-        searchInput.addEventListener("input", updateEntries);
-      }
-
-      filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          activeFilter = button.dataset.filter || "all";
-          if (searchInput) searchInput.value = "";
-          filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
-          updateEntries();
-        });
-      });
+      document.addEventListener("astro:page-load", initPageInteractions);
     </script>
   </body>
 </html>
