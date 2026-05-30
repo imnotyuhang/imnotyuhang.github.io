@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Sidebar from "../components/Sidebar.astro";
+import WanderingPets from "../components/WanderingPets.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -49,15 +50,38 @@ const {
       </main>
       <slot name="rail" />
     </div>
+    <WanderingPets />
 
     <script is:inline>
+      function initWanderingPets() {
+        const pets = Array.from(document.querySelectorAll("[data-wander-pet]"));
+        if (!pets.length) return;
+
+        const reactions = ["♡", "hi", "boop", "✦"];
+
+        pets.forEach((pet, index) => {
+          pet.classList.remove("is-ready", "is-booped");
+          pet.style.setProperty("--wander-delay", `${index * -1.4}s`);
+          requestAnimationFrame(() => pet.classList.add("is-ready"));
+
+          pet.onclick = () => {
+            const reaction = pet.querySelector(".pet-reaction");
+            if (reaction) reaction.textContent = reactions[Math.floor(Math.random() * reactions.length)];
+            pet.classList.remove("is-booped");
+            void pet.offsetWidth;
+            pet.classList.add("is-booped");
+            window.setTimeout(() => pet.classList.remove("is-booped"), 680);
+          };
+        });
+      }
+
       function initPageInteractions() {
         const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
         const sidebar = document.querySelector("[data-sidebar]");
         const searchInput = document.querySelector("[data-search-input]");
         const entries = Array.from(document.querySelectorAll("[data-entry]"));
         const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
-        const interactivePanels = Array.from(document.querySelectorAll(".intro-panel, .entry-card, .rail-card, .detail-article, .toc-card"));
+        const interactivePanels = Array.from(document.querySelectorAll(".intro-panel, .bento-card, .entry-card, .rail-card, .detail-article, .toc-card"));
 
         let activeFilter = "all";
 
@@ -123,7 +147,10 @@ const {
         });
       }
 
-      document.addEventListener("astro:page-load", initPageInteractions);
+      document.addEventListener("astro:page-load", () => {
+        initPageInteractions();
+        initWanderingPets();
+      });
     </script>
   </body>
 </html>

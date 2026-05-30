@@ -3,24 +3,57 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TopBar from "../components/TopBar.astro";
 import EntryCard from "../components/EntryCard.astro";
 import RightRail from "../components/RightRail.astro";
-import { getAllPublishedEntries } from "../lib/content";
+import { entryHref, getAllPublishedEntries } from "../lib/content";
 
 const entries = await getAllPublishedEntries();
 const projects = entries.filter((entry) => entry.data.type === "project");
 const notesAndLife = entries.filter((entry) => entry.data.type === "note" || entry.data.type === "life");
+const featuredProject = projects[0];
+const latestNote = notesAndLife[0];
 ---
 
 <BaseLayout title="Yuhang's Web Space" active="home">
   <TopBar label="Home" searchable />
 
-  <section class="intro-panel" aria-labelledby="intro-title">
-    <p class="section-label">Hello</p>
-    <h2 id="intro-title">This is a room for what I build, study, notice, and keep coming back to.</h2>
-    <p>
-      Some pages are for recruiters. Some are for future me. The useful part is that they can live
-      in the same place: projects with technical depth, notes from learning, and small records of
-      how I see the world.
-    </p>
+  <section class="bento-grid" aria-labelledby="intro-title">
+    <article class="bento-card bento-hero">
+      <p class="section-label">Hello</p>
+      <h2 id="intro-title">This is a room for what I build, study, notice, and keep coming back to.</h2>
+      <p>
+        Some pages are for recruiters. Some are for future me. The useful part is that they can live
+        in the same place: projects with technical depth, notes from learning, and small records of
+        how I see the world.
+      </p>
+    </article>
+
+    <article class="bento-card bento-now">
+      <p class="section-label">Now</p>
+      <h3>Building a personal web space with room for work and life.</h3>
+      <p>Current focus: applied AI systems, better project storytelling, and small things that make the site feel alive.</p>
+    </article>
+
+    <a class="bento-card bento-resume" href="/resume/">
+      <p class="section-label">Recruiter Path</p>
+      <h3>Resume, experience, skills, and CV.</h3>
+      <span>Open resume</span>
+    </a>
+
+    {featuredProject && (
+      <a class="bento-card bento-project" href={entryHref(featuredProject)}>
+        <p class="section-label">Featured Project</p>
+        <h3>{featuredProject.data.title}</h3>
+        <p>{featuredProject.data.summary}</p>
+        <span>Read case study</span>
+      </a>
+    )}
+
+    {latestNote && (
+      <a class="bento-card bento-note" href={entryHref(latestNote)}>
+        <p class="section-label">Latest Fragment</p>
+        <h3>{latestNote.data.title}</h3>
+        <p>{latestNote.data.summary}</p>
+      </a>
+    )}
   </section>
 
   <section class="feed-section" id="projects" aria-labelledby="projects-title">

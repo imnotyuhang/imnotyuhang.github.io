@@ -1,0 +1,22 @@
+[
+  {
+    "id": "calico",
+    "name": "Calico Cat",
+    "species": "cat",
+    "enabled": true,
+    "placement": "bottom-right",
+    "style": "inline-svg",
+    "asset": null,
+    "notes": "Replace asset with /assets/pets/calico/idle.webp when a licensed sticker image is ready."
+  },
+  {
+    "id": "beagle",
+    "name": "Beagle",
+    "species": "dog",
+    "enabled": true,
+    "placement": "bottom-right",
+    "style": "inline-svg",
+    "asset": null,
+    "notes": "Replace asset with /assets/pets/beagle/idle.webp when a licensed sticker image is ready."
+  }
+]
