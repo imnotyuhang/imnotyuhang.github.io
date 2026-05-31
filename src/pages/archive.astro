@@ -2,9 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TopBar from "../components/TopBar.astro";
 import RightRail from "../components/RightRail.astro";
-import { entryDate, entryHref, formatDate, getAllPublishedEntries } from "../lib/content";
+import { entryDate, entryDateLabel, entryHref, getAllPublishedEntries } from "../lib/content";
 
-const entries = await getAllPublishedEntries();
+const entries = (await getAllPublishedEntries()).sort((a, b) => entryDate(b).getTime() - entryDate(a).getTime());
 const grouped = entries.reduce((years, entry) => {
   const year = String(entryDate(entry).getFullYear());
   years[year] = years[year] ?? [];
@@ -32,7 +32,7 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
               <a class="archive-row timeline-entry" href={entryHref(entry)} data-entry data-type={entry.data.type} data-category={entry.data.category} data-tags={`${entry.data.title} ${entry.data.summary} ${entry.data.tags.join(" ")}`.toLowerCase()}>
                 <span class="timeline-node" aria-hidden="true"></span>
                 <span class="archive-date">
-                  <time datetime={entryDate(entry).toISOString()}>{formatDate(entryDate(entry))}</time>
+                  <time datetime={entryDate(entry).toISOString()}>{entryDateLabel(entry)}</time>
                 </span>
                 <span class="archive-copy">
                   <strong>{entry.data.title}</strong>

@@ -12,16 +12,17 @@ const { crumbs, searchable = false } = Astro.props;
 
 <header class="top-bar" aria-label="Page context">
   <nav class="breadcrumbs" aria-label="Breadcrumb">
-    <ol>
+    <div class="breadcrumb-list">
       {crumbs.map((crumb, index) => {
         const isCurrent = index === crumbs.length - 1;
         return (
-          <li>
-            {crumb.href && !isCurrent ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current={isCurrent ? "page" : undefined}>{crumb.label}</span>}
-          </li>
+          <span class="breadcrumb-item">
+            {index > 0 && <span class="breadcrumb-separator" aria-hidden="true">›</span>}
+            {crumb.href && !isCurrent ? <a href={crumb.href}>{crumb.label}</a> : <span class="breadcrumb-current" aria-current={isCurrent ? "page" : undefined}>{crumb.label}</span>}
+          </span>
         );
       })}
-    </ol>
+    </div>
   </nav>
   {searchable && (
     <label class="search-box">

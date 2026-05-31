@@ -12,6 +12,10 @@ export type Category = {
 };
 
 export function entryDate(entry: SiteEntry) {
+  return entry.data.date;
+}
+
+export function entryUpdatedDate(entry: SiteEntry) {
   return entry.data.updated ?? entry.data.date;
 }
 
@@ -25,6 +29,10 @@ export function formatDate(date: Date) {
 
 export function entryHref(entry: SiteEntry) {
   return `/entries/${entry.data.slug}/`;
+}
+
+export function entryDateLabel(entry: SiteEntry) {
+  return entry.data.period ?? formatDate(entryDate(entry));
 }
 
 export async function getAllPublishedEntries() {

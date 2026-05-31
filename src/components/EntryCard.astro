@@ -1,6 +1,6 @@
 ---
 import type { SiteEntry } from "../lib/content";
-import { entryHref, entryDate, formatDate } from "../lib/content";
+import { entryHref, entryDate, entryDateLabel } from "../lib/content";
 import TagList from "./TagList.astro";
 
 interface Props {
@@ -30,7 +30,7 @@ const searchable = [
     <div class="entry-body">
       <div class="entry-meta">
         <span>{data.type.charAt(0).toUpperCase() + data.type.slice(1)}</span>
-        <time datetime={entryDate(entry).toISOString()}>{formatDate(entryDate(entry))}</time>
+        <time datetime={entryDate(entry).toISOString()}>{entryDateLabel(entry)}</time>
       </div>
       <h3>{data.title}</h3>
       <p>{data.summary}</p>

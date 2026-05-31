@@ -1,13 +1,13 @@
 ---
 import type { SiteEntry } from "../lib/content";
-import { categoryEntryCount, categoryHref, entryHref, getCategories } from "../lib/content";
+import { categoryEntryCount, categoryHref, entryHref, entryUpdatedDate, getCategories } from "../lib/content";
 
 interface Props {
   entries: SiteEntry[];
 }
 
 const { entries } = Astro.props;
-const recent = entries.slice(0, 4);
+const recent = [...entries].sort((a, b) => entryUpdatedDate(b).getTime() - entryUpdatedDate(a).getTime()).slice(0, 4);
 const categories = getCategories();
 const filters = ["All", "Projects", "Notes", "Life", "AI", "Vision", "Robotics"];
 const filterValue = (label: string) => {

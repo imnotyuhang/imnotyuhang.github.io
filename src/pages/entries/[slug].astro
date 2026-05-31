@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import TagList from "../../components/TagList.astro";
 import TopBar from "../../components/TopBar.astro";
 import Toc from "../../components/Toc.astro";
-import { categoryHref, formatDate, getCategory } from "../../lib/content";
+import { categoryHref, entryDateLabel, getCategory } from "../../lib/content";
 
 export async function getStaticPaths() {
   const entries = await getCollection("entries", ({ data }) => data.status === "published");
@@ -30,7 +30,7 @@ const typeLabel = entry.data.type.charAt(0).toUpperCase() + entry.data.type.slic
       <h2>{entry.data.title}</h2>
       <p>{entry.data.summary}</p>
       <div class="entry-meta">
-        <span>{formatDate(entry.data.updated ?? entry.data.date)}</span>
+        <span>{entryDateLabel(entry)}</span>
         {entry.data.tools && entry.data.tools.length > 0 ? <span>{entry.data.tools.join(" / ")}</span> : <span>{typeLabel}</span>}
       </div>
       <TagList tags={entry.data.tags} />

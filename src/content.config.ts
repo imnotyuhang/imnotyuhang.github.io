@@ -8,6 +8,7 @@ const baseEntry = {
   type: z.enum(["project", "note", "life"]),
   category: z.string(),
   date: z.coerce.date(),
+  period: z.string().optional(),
   updated: z.coerce.date().optional(),
   summary: z.string(),
   tags: z.array(z.string()).default([]),
