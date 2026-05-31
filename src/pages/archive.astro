@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TopBar from "../components/TopBar.astro";
+import RightRail from "../components/RightRail.astro";
+import { entryDate, entryHref, formatDate, getAllPublishedEntries } from "../lib/content";
+
+const entries = await getAllPublishedEntries();
+const grouped = entries.reduce((years, entry) => {
+  const year = String(entryDate(entry).getFullYear());
+  years[year] = years[year] ?? [];
+  years[year].push(entry);
+  return years;
+}, {});
+const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+---
+
+<BaseLayout title="Archive | Yuhang Wu" active="archive">
+  <TopBar label="Home › Archive" searchable />
+
+  <section class="directory-section" aria-labelledby="archive-title">
+    <div class="section-heading compact-heading">
+      <p class="section-label">Archive</p>
+      <h2 id="archive-title">Everything in time order.</h2>
+    </div>
+
+    <div class="archive-list">
+      {years.map((year) => (
+        <section class="archive-year" aria-labelledby={`year-${year}`}>
+          <h3 id={`year-${year}`}>{year}</h3>
+          {grouped[year].map((entry) => (
+            <a class="archive-row" href={entryHref(entry)} data-entry data-type={entry.data.type} data-category={entry.data.category} data-tags={`${entry.data.title} ${entry.data.summary} ${entry.data.tags.join(" ")}`.toLowerCase()}>
+              <time datetime={entryDate(entry).toISOString()}>{formatDate(entryDate(entry))}</time>
+              <span>{entry.data.title}</span>
+              <small>{entry.data.type}</small>
+            </a>
+          ))}
+        </section>
+      ))}
+    </div>
+  </section>
+
+  <RightRail slot="rail" entries={entries} />
+</BaseLayout>

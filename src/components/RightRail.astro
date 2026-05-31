@@ -1,6 +1,6 @@
 ---
 import type { SiteEntry } from "../lib/content";
-import { entryHref } from "../lib/content";
+import { categoryEntryCount, categoryHref, entryHref, getCategories } from "../lib/content";
 
 interface Props {
   entries: SiteEntry[];
@@ -8,12 +8,13 @@ interface Props {
 
 const { entries } = Astro.props;
 const recent = entries.slice(0, 4);
-const focusAreas = ["Applied AI Systems", "LLM Agents", "Data Science", "Computer Vision", "Robotics"];
-const filters = ["All", "Projects", "Notes", "Life", "LLM", "Vision", "Robotics"];
+const categories = getCategories();
+const filters = ["All", "Projects", "Notes", "Life", "AI", "Vision", "Robotics"];
 const filterValue = (label: string) => {
   if (label === "All") return "all";
   if (label === "Projects") return "project";
   if (label === "Notes") return "note";
+  if (label === "Life") return "life";
   return label.toLowerCase();
 };
 ---
@@ -25,14 +26,18 @@ const filterValue = (label: string) => {
   </section>
 
   <section class="rail-card">
-    <h2>Focus Areas</h2>
+    <h2>Categories</h2>
     <div class="focus-list">
-      {focusAreas.map((area) => <span>{area}</span>)}
+      {categories.map((category) => (
+        <a class="rail-pill" href={categoryHref(category)}>
+          {category.title} <span>{categoryEntryCount(category, entries)}</span>
+        </a>
+      ))}
     </div>
   </section>
 
   <section class="rail-card">
-    <h2>Tags</h2>
+    <h2>Quick Filters</h2>
     <div class="filter-tags" data-filter-tags>
       {filters.map((label) => (
         <button type="button" class:list={[label === "All" && "is-active"]} data-filter={filterValue(label)}>

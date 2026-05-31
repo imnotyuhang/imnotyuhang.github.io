@@ -7,7 +7,7 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
-  active?: "home" | "projects" | "notes" | "life" | "resume";
+  active?: "home" | "categories" | "archive" | "about";
   detail?: boolean;
   contentClass?: string;
 }
@@ -91,8 +91,9 @@ const {
         function entryMatchesFilter(entry) {
           if (activeFilter === "all") return true;
           const category = entry.dataset.category || "";
+          const type = entry.dataset.type || "";
           const tags = entry.dataset.tags || "";
-          if (["project", "note", "life"].includes(activeFilter)) return category === activeFilter;
+          if (["project", "note", "life"].includes(activeFilter)) return type === activeFilter;
           return category.includes(activeFilter) || tags.includes(activeFilter);
         }
 

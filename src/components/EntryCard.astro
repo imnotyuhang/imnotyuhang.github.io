@@ -14,6 +14,7 @@ const searchable = [
   data.title,
   data.summary,
   data.type,
+  data.category,
   ...data.tags,
 ].join(" ").toLowerCase();
 ---
@@ -21,7 +22,8 @@ const searchable = [
 <article
   class:list={["entry-card", data.featured && "is-featured", muted && "is-muted"]}
   data-entry
-  data-category={data.type}
+  data-type={data.type}
+  data-category={data.category}
   data-tags={searchable}
 >
   <a href={entryHref(entry)} aria-label={`Read ${data.title}`}>

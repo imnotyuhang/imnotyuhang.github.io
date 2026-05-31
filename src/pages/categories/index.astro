@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TopBar from "../../components/TopBar.astro";
+import RightRail from "../../components/RightRail.astro";
+import { categoryEntryCount, categoryHref, getAllPublishedEntries, getCategories } from "../../lib/content";
+
+const entries = await getAllPublishedEntries();
+const categories = getCategories();
+---
+
+<BaseLayout title="Categories | Yuhang Wu" active="categories">
+  <TopBar label="Home › Categories" searchable />
+
+  <section class="directory-section" aria-labelledby="categories-title">
+    <div class="section-heading compact-heading">
+      <p class="section-label">Categories</p>
+      <h2 id="categories-title">A folder map for work, writing, and life.</h2>
+    </div>
+
+    <div class="category-list">
+      {categories.map((category) => (
+        <article class="category-card">
+          <a class="category-row" href={categoryHref(category)} data-entry data-type="category" data-category={category.slug} data-tags={`${category.title} ${category.summary}`.toLowerCase()}>
+            <span class="folder-icon" aria-hidden="true">□</span>
+            <span class="category-main">
+              <strong>{category.title}</strong>
+              <small>{categoryEntryCount(category, entries)} posts</small>
+            </span>
+            <span aria-hidden="true">›</span>
+          </a>
+          {category.children && category.children.length > 0 && (
+            <div class="category-children">
+              {category.children.map((child) => (
+                <a class="category-row child-row" href={categoryHref(child)} data-entry data-type="category" data-category={child.slug} data-tags={`${child.title} ${child.summary}`.toLowerCase()}>
+                  <span class="folder-icon" aria-hidden="true">□</span>
+                  <span class="category-main">
+                    <strong>{child.title}</strong>
+                    <small>{categoryEntryCount(child, entries)} posts</small>
+                  </span>
+                  <span aria-hidden="true">›</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <RightRail slot="rail" entries={entries} />
+</BaseLayout>

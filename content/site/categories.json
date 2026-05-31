@@ -1,0 +1,48 @@
+[
+  {
+    "slug": "work",
+    "title": "Work",
+    "summary": "Applied technical work, research projects, and systems I have built or shaped.",
+    "children": [
+      {
+        "slug": "ai-data-systems",
+        "title": "AI & Data Systems",
+        "summary": "LLM agents, analytics workflows, data products, and decision-support systems."
+      },
+      {
+        "slug": "robotics-computer-vision",
+        "title": "Robotics & Computer Vision",
+        "summary": "Robotic intelligence, medical vision, pose estimation, tracking, and video understanding."
+      },
+      {
+        "slug": "modeling-public-health",
+        "title": "Modeling & Public Health",
+        "summary": "Forecasting, health-risk analysis, statistical modeling, and visual analytics."
+      }
+    ]
+  },
+  {
+    "slug": "writing",
+    "title": "Writing",
+    "summary": "Notes, reflections, learning logs, and fragments of thinking.",
+    "children": [
+      {
+        "slug": "reflections",
+        "title": "Reflections",
+        "summary": "Personal notes about work, learning, and why this space exists."
+      }
+    ]
+  },
+  {
+    "slug": "life",
+    "title": "Life",
+    "summary": "Photos, places, routines, and small records outside work.",
+    "children": [
+      {
+        "slug": "life-fragments",
+        "title": "Life Fragments",
+        "summary": "Small personal records, future photos, places, and memories."
+      }
+    ]
+  }
+]

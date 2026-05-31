@@ -6,6 +6,7 @@ const baseEntry = {
   title: z.string(),
   slug: z.string(),
   type: z.enum(["project", "note", "life"]),
+  category: z.string(),
   date: z.coerce.date(),
   updated: z.coerce.date().optional(),
   summary: z.string(),
@@ -19,11 +20,10 @@ const baseEntry = {
   })).default([]),
 };
 
-const projects = defineCollection({
-  loader: glob({ base: "./content/projects", pattern: "**/*.{md,mdx}" }),
+const entries = defineCollection({
+  loader: glob({ base: "./content/entries", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     ...baseEntry,
-    type: z.literal("project"),
     role: z.string().optional(),
     tools: z.array(z.string()).default([]),
     problem: z.string().optional(),
@@ -33,20 +33,4 @@ const projects = defineCollection({
   }),
 });
 
-const notes = defineCollection({
-  loader: glob({ base: "./content/notes", pattern: "**/*.{md,mdx}" }),
-  schema: z.object({
-    ...baseEntry,
-    type: z.literal("note"),
-  }),
-});
-
-const life = defineCollection({
-  loader: glob({ base: "./content/life", pattern: "**/*.{md,mdx}" }),
-  schema: z.object({
-    ...baseEntry,
-    type: z.literal("life"),
-  }),
-});
-
-export const collections = { projects, notes, life };
+export const collections = { entries };

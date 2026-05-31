@@ -3,11 +3,11 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TagList from "../../components/TagList.astro";
 import Toc from "../../components/Toc.astro";
-import { formatDate } from "../../lib/content";
+import { formatDate, getCategory } from "../../lib/content";
 
 export async function getStaticPaths() {
-  const projects = await getCollection("projects", ({ data }) => data.status === "published");
-  return projects.map((entry) => ({
+  const entries = await getCollection("entries", ({ data }) => data.status === "published");
+  return entries.map((entry) => ({
     params: { slug: entry.data.slug },
     props: { entry },
   }));
@@ -15,17 +15,19 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
+const category = getCategory(entry.data.category);
+const typeLabel = entry.data.type.charAt(0).toUpperCase() + entry.data.type.slice(1);
 ---
 
-<BaseLayout title={`${entry.data.title} | Yuhang Wu`} active="projects" detail contentClass="detail-content">
+<BaseLayout title={`${entry.data.title} | Yuhang Wu`} active="categories" detail contentClass="detail-content">
   <article class="detail-article">
     <header class="detail-hero">
-      <p class="section-label">Project / {entry.data.role ?? "Case Study"}</p>
+      <p class="section-label">{typeLabel} / {category?.title ?? entry.data.category}</p>
       <h2>{entry.data.title}</h2>
       <p>{entry.data.summary}</p>
       <div class="entry-meta">
         <span>{formatDate(entry.data.updated ?? entry.data.date)}</span>
-        <span>{entry.data.tools.join(" / ")}</span>
+        {entry.data.tools && entry.data.tools.length > 0 ? <span>{entry.data.tools.join(" / ")}</span> : <span>{typeLabel}</span>}
       </div>
       <TagList tags={entry.data.tags} />
     </header>

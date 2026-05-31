@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TopBar from "../../components/TopBar.astro";
+import EntryCard from "../../components/EntryCard.astro";
+import RightRail from "../../components/RightRail.astro";
+import { childCategorySlugs, getAllPublishedEntries, getCategories } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const categories = getCategories();
+  const flatten = (items) => items.flatMap((item) => [item, ...flatten(item.children ?? [])]);
+  return flatten(categories).map((category) => ({
+    params: { slug: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const entries = await getAllPublishedEntries();
+const slugs = [category.slug, ...childCategorySlugs(category.slug)];
+const categoryEntries = entries.filter((entry) => slugs.includes(entry.data.category));
+---
+
+<BaseLayout title={`${category.title} | Yuhang Wu`} active="categories">
+  <TopBar label={`Home › Categories › ${category.title}`} searchable />
+
+  <section class="feed-section" aria-labelledby="category-title">
+    <div class="section-heading compact-heading">
+      <p class="section-label">Category</p>
+      <h2 id="category-title">{category.title}</h2>
+      <p>{category.summary}</p>
+    </div>
+    <div class="entry-feed" data-entry-list>
+      {categoryEntries.map((entry) => <EntryCard entry={entry} />)}
+    </div>
+  </section>
+
+  <RightRail slot="rail" entries={entries} />
+</BaseLayout>

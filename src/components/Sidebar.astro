@@ -1,16 +1,15 @@
 ---
 interface Props {
-  active?: "home" | "projects" | "notes" | "life" | "resume";
+  active?: "home" | "categories" | "archive" | "about";
 }
 
 const { active = "home" } = Astro.props;
 
 const nav = [
   { id: "home", href: "/", label: "Home" },
-  { id: "projects", href: "/projects/", label: "Projects" },
-  { id: "notes", href: "/notes/", label: "Notes" },
-  { id: "life", href: "/life/", label: "Life" },
-  { id: "resume", href: "/resume/", label: "Resume" },
+  { id: "categories", href: "/categories/", label: "Categories" },
+  { id: "archive", href: "/archive/", label: "Archive" },
+  { id: "about", href: "/about/", label: "About" },
 ];
 ---
 

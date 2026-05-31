@@ -1,9 +1,15 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 
-export type SiteEntry =
-  | CollectionEntry<"projects">
-  | CollectionEntry<"notes">
-  | CollectionEntry<"life">;
+import categories from "../../content/site/categories.json";
+
+export type SiteEntry = CollectionEntry<"entries">;
+
+export type Category = {
+  slug: string;
+  title: string;
+  summary: string;
+  children?: Category[];
+};
 
 export function entryDate(entry: SiteEntry) {
   return entry.data.updated ?? entry.data.date;
@@ -18,18 +24,42 @@ export function formatDate(date: Date) {
 }
 
 export function entryHref(entry: SiteEntry) {
-  return `/${entry.collection}/${entry.data.slug}/`;
+  return `/entries/${entry.data.slug}/`;
 }
 
 export async function getAllPublishedEntries() {
-  const [projects, notes, life] = await Promise.all([
-    getCollection("projects", ({ data }) => data.status === "published"),
-    getCollection("notes", ({ data }) => data.status === "published"),
-    getCollection("life", ({ data }) => data.status === "published"),
-  ]);
+  const entries = await getCollection("entries", ({ data }) => data.status === "published");
 
-  return [...projects, ...notes, ...life].sort((a, b) => {
+  return entries.sort((a, b) => {
     if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
     return entryDate(b).getTime() - entryDate(a).getTime();
   });
+}
+
+export function getCategories() {
+  return categories as Category[];
+}
+
+export function flattenCategories(items: Category[] = getCategories()) {
+  return items.flatMap((item) => [item, ...flattenCategories(item.children ?? [])]);
+}
+
+export function getCategory(slug: string) {
+  return flattenCategories().find((category) => category.slug === slug);
+}
+
+export function childCategorySlugs(slug: string) {
+  const category = getCategory(slug);
+  if (!category) return [];
+  return flattenCategories(category.children ?? []).map((item) => item.slug);
+}
+
+export function categoryEntryCount(category: Category, entries: SiteEntry[]) {
+  const slugs = [category.slug, ...flattenCategories(category.children ?? []).map((item) => item.slug)];
+  return entries.filter((entry) => slugs.includes(entry.data.category)).length;
+}
+
+export function categoryHref(category: Category | string) {
+  const slug = typeof category === "string" ? category : category.slug;
+  return `/categories/${slug}/`;
 }
