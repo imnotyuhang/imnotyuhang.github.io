@@ -443,7 +443,7 @@ li + li {
 .pet-playground {
   position: fixed;
   inset: 0;
-  z-index: 6;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -513,6 +513,12 @@ li + li {
   height: 138px;
   object-fit: contain;
   filter: drop-shadow(0 12px 18px rgba(54, 45, 96, 0.18));
+}
+
+@media (min-width: 1281px) {
+  .pet-playground {
+    z-index: 6;
+  }
 }
 
 .pet-body,
@@ -1102,10 +1108,6 @@ li + li {
     min-height: 0;
   }
 
-  .pet-playground {
-    z-index: 24;
-  }
-
   .wander-pet {
     width: 92px;
     height: 98px;
@@ -1126,6 +1128,10 @@ li + li {
 }
 
 @media (max-width: 560px) {
+  .pet-playground {
+    display: none;
+  }
+
   .top-bar {
     align-items: stretch;
     flex-direction: column;

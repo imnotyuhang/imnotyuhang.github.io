@@ -5,9 +5,9 @@
     "species": "cat",
     "enabled": true,
     "placement": "bottom-right",
-    "style": "inline-svg",
-    "asset": null,
-    "notes": "Replace asset with /assets/pets/calico/idle.webp when a licensed sticker image is ready."
+    "style": "image",
+    "asset": "/assets/pets/calico/idle.png",
+    "notes": "Original generated transparent sticker asset."
   },
   {
     "id": "beagle",
@@ -15,8 +15,8 @@
     "species": "dog",
     "enabled": true,
     "placement": "bottom-right",
-    "style": "inline-svg",
-    "asset": null,
-    "notes": "Replace asset with /assets/pets/beagle/idle.webp when a licensed sticker image is ready."
+    "style": "image",
+    "asset": "/assets/pets/beagle/idle.png",
+    "notes": "Original generated transparent sticker asset."
   }
 ]

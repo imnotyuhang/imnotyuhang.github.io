@@ -8,10 +8,11 @@ const pets = petsConfig.filter((pet) => pet.enabled);
   <div class="pet-corner">
     {pets.map((pet) => (
       <button class:list={["wander-pet", `pet-${pet.id}`]} type="button" data-wander-pet data-pet-id={pet.id} data-animal={pet.species} aria-label={`${pet.name} sticker`}>
-        {pet.asset ? (
-          <img class="pet-image" src={pet.asset} alt="" loading="eager" />
-        ) : pet.id === "calico" ? (
-          <svg class="pet-svg" viewBox="0 0 150 150" role="presentation">
+        <span class="pet-sticker">
+          {pet.asset ? (
+            <img class="pet-image" src={pet.asset} alt="" loading="eager" />
+          ) : pet.id === "calico" ? (
+            <svg class="pet-svg" viewBox="0 0 150 150" role="presentation">
             <path class="pet-shadow" d="M28 133c21 10 80 10 101 0 8-4 6-11-3-14-24-8-72-8-96 0-9 3-10 10-2 14Z" />
             <path class="cat-tail patch-dark" d="M105 93c25-5 33-30 17-44-8-7-20-2-18 9 1 7 8 9 10 15 3 9-4 18-16 20" />
             <path class="pet-body fur-white" d="M39 87c3-28 20-44 40-44s37 16 40 44c4 32-12 48-40 48S35 119 39 87Z" />
@@ -34,9 +35,9 @@ const pets = petsConfig.filter((pet) => pet.enabled);
             <path class="pet-leg right fur-white" d="M104 116c8 8 6 17-5 17H87v-22Z" />
             <path class="pet-paw left" d="M52 90c-11 1-18 8-16 17 2 9 15 11 23 4" />
             <path class="pet-paw right" d="M108 90c11 1 18 8 16 17-2 9-15 11-23 4" />
-          </svg>
-        ) : (
-          <svg class="pet-svg" viewBox="0 0 150 150" role="presentation">
+            </svg>
+          ) : (
+            <svg class="pet-svg" viewBox="0 0 150 150" role="presentation">
             <path class="pet-shadow" d="M26 134c22 10 82 10 104 0 8-4 7-11-3-14-26-8-74-8-100 0-10 3-11 10-1 14Z" />
             <path class="dog-tail fur-white" d="M111 88c18-18 34-7 26 11" />
             <path class="pet-body fur-white" d="M34 86c7-25 23-40 44-40s37 15 44 40c8 33-8 49-44 49S26 119 34 86Z" />
@@ -57,8 +58,9 @@ const pets = petsConfig.filter((pet) => pet.enabled);
             <path class="pet-leg right fur-white" d="M103 116c8 8 6 17-5 17H85v-24Z" />
             <path class="pet-paw left" d="M51 91c-11 1-18 9-16 18 2 9 15 11 24 4" />
             <path class="pet-paw right" d="M109 91c11 1 18 9 16 18-2 9-15 11-24 4" />
-          </svg>
-        )}
+            </svg>
+          )}
+        </span>
         <span class="pet-reaction"></span>
       </button>
     ))}

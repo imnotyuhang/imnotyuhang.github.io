@@ -7,4 +7,9 @@ Expected structure:
 - `beagle/idle.webp`
 - `beagle/boop.webp`
 
-Use transparent PNG or WebP assets with clear licensing. The site currently uses inline SVG fallbacks configured in `content/pets/pets.json`.
+PNG is also fine for early iterations. Current V1 pets use original generated transparent PNGs:
+
+- `calico/idle.png`
+- `beagle/idle.png`
+
+The site can still fall back to inline SVGs if a pet entry in `content/pets/pets.json` has no `asset`.
