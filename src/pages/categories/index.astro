@@ -21,7 +21,7 @@ const categories = getCategories();
       {categories.map((category) => (
         <article class="category-card">
           <a class="category-row" href={categoryHref(category)} data-entry data-type="category" data-category={category.slug} data-tags={`${category.title} ${category.summary}`.toLowerCase()}>
-            <span class="folder-icon" aria-hidden="true">□</span>
+            <span class="folder-icon" aria-hidden="true"></span>
             <span class="category-main">
               <strong>{category.title}</strong>
               <small>{categoryEntryCount(category, entries)} posts</small>
@@ -32,7 +32,7 @@ const categories = getCategories();
             <div class="category-children">
               {category.children.map((child) => (
                 <a class="category-row child-row" href={categoryHref(child)} data-entry data-type="category" data-category={child.slug} data-tags={`${child.title} ${child.summary}`.toLowerCase()}>
-                  <span class="folder-icon" aria-hidden="true">□</span>
+                  <span class="folder-icon" aria-hidden="true"></span>
                   <span class="category-main">
                     <strong>{child.title}</strong>
                     <small>{categoryEntryCount(child, entries)} posts</small>

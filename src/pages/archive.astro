@@ -27,13 +27,21 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
       {years.map((year) => (
         <section class="archive-year" aria-labelledby={`year-${year}`}>
           <h3 id={`year-${year}`}>{year}</h3>
-          {grouped[year].map((entry) => (
-            <a class="archive-row" href={entryHref(entry)} data-entry data-type={entry.data.type} data-category={entry.data.category} data-tags={`${entry.data.title} ${entry.data.summary} ${entry.data.tags.join(" ")}`.toLowerCase()}>
-              <time datetime={entryDate(entry).toISOString()}>{formatDate(entryDate(entry))}</time>
-              <span>{entry.data.title}</span>
-              <small>{entry.data.type}</small>
-            </a>
-          ))}
+          <div class="timeline-list">
+            {grouped[year].map((entry) => (
+              <a class="archive-row timeline-entry" href={entryHref(entry)} data-entry data-type={entry.data.type} data-category={entry.data.category} data-tags={`${entry.data.title} ${entry.data.summary} ${entry.data.tags.join(" ")}`.toLowerCase()}>
+                <span class="timeline-node" aria-hidden="true"></span>
+                <span class="archive-date">
+                  <time datetime={entryDate(entry).toISOString()}>{formatDate(entryDate(entry))}</time>
+                </span>
+                <span class="archive-copy">
+                  <strong>{entry.data.title}</strong>
+                  <span>{entry.data.summary}</span>
+                </span>
+                <small class="archive-type">{entry.data.type}</small>
+              </a>
+            ))}
+          </div>
         </section>
       ))}
     </div>
