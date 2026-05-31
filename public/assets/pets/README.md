@@ -12,4 +12,9 @@ PNG is also fine for early iterations. Current V1 pets use original generated tr
 - `calico/idle.png`
 - `beagle/idle.png`
 
-The site can still fall back to inline SVGs if a pet entry in `content/pets/pets.json` has no `asset`.
+Pet System V3 also supports generated sprite sheets:
+
+- `calico/sprite.png`
+- `beagle/sprite.png`
+
+Each sprite sheet currently has four horizontal frames: idle, lick, stretch, and jump. The site can still fall back to a static PNG or inline SVG if a pet entry in `content/pets/pets.json` has no sprite.

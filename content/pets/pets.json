@@ -5,8 +5,18 @@
     "species": "cat",
     "enabled": true,
     "placement": "bottom-right",
-    "style": "image",
+    "style": "sprite",
     "asset": "/assets/pets/calico/idle.png",
+    "sprite": {
+      "src": "/assets/pets/calico/sprite.png",
+      "frames": 4
+    },
+    "actions": {
+      "idle": { "frames": [0], "frameMs": 900 },
+      "lick": { "frames": [0, 1, 1, 0], "frameMs": 260 },
+      "stretch": { "frames": [0, 2, 2, 0], "frameMs": 320 },
+      "jump": { "frames": [0, 3, 3, 0], "frameMs": 170 }
+    },
     "notes": "Original generated transparent sticker asset."
   },
   {
@@ -15,8 +25,18 @@
     "species": "dog",
     "enabled": true,
     "placement": "bottom-right",
-    "style": "image",
+    "style": "sprite",
     "asset": "/assets/pets/beagle/idle.png",
+    "sprite": {
+      "src": "/assets/pets/beagle/sprite.png",
+      "frames": 4
+    },
+    "actions": {
+      "idle": { "frames": [0], "frameMs": 900 },
+      "lick": { "frames": [0, 1, 1, 0], "frameMs": 260 },
+      "stretch": { "frames": [0, 2, 2, 0], "frameMs": 320 },
+      "jump": { "frames": [0, 3, 3, 0], "frameMs": 170 }
+    },
     "notes": "Original generated transparent sticker asset."
   }
 ]

@@ -52,121 +52,13 @@ const {
     </div>
     <WanderingPets />
 
+    <script>
+      import { initPetEngine } from "../scripts/petEngine.js";
+
+      document.addEventListener("astro:page-load", initPetEngine);
+    </script>
+
     <script is:inline>
-      function initWanderingPets() {
-        const pets = Array.from(document.querySelectorAll("[data-wander-pet]"));
-        if (!pets.length) return;
-
-        if (window.matchMedia("(max-width: 560px)").matches) return;
-
-        const reactions = ["♡", "hi", "boop", "stay", "✦"];
-        const obstacleSelector = [
-          ".sidebar",
-          ".top-bar",
-          ".bento-card",
-          ".entry-card",
-          ".rail-card",
-          ".detail-article",
-          ".toc-card",
-          ".life-panel",
-        ].join(",");
-
-        function clamp(value, min, max) {
-          return Math.min(Math.max(value, min), max);
-        }
-
-        function intersects(a, b, margin = 18) {
-          return !(
-            a.right + margin < b.left ||
-            a.left - margin > b.right ||
-            a.bottom + margin < b.top ||
-            a.top - margin > b.bottom
-          );
-        }
-
-        function visibleObstacleRects() {
-          return Array.from(document.querySelectorAll(obstacleSelector))
-            .map((element) => element.getBoundingClientRect())
-            .filter((rect) => rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.right > 0 && rect.top < window.innerHeight && rect.left < window.innerWidth);
-        }
-
-        function isSafe(rect, obstacles) {
-          return !obstacles.some((obstacle) => intersects(rect, obstacle));
-        }
-
-        function candidateRect(x, y, width, height) {
-          return { left: x, top: y, right: x + width, bottom: y + height };
-        }
-
-        function findSafePosition(pet, index, occupied) {
-          const width = pet.offsetWidth || 138;
-          const height = pet.offsetHeight || 140;
-          const padding = 22;
-          const maxX = Math.max(padding, window.innerWidth - width - padding);
-          const maxY = Math.max(82, window.innerHeight - height - padding);
-          const obstacles = visibleObstacleRects();
-
-          const candidates = [
-            [maxX - index * 112 - Math.random() * 20, maxY - index * 2 - Math.random() * 8],
-            [maxX - Math.random() * 22, window.innerHeight * 0.5 + index * 80 + Math.random() * 60],
-            [window.innerWidth * 0.08 + index * 120 + Math.random() * 80, maxY - Math.random() * 28],
-            [window.innerWidth * 0.5 + index * 92 + Math.random() * 90, maxY - Math.random() * 28],
-          ];
-
-          for (let i = 0; i < 28; i += 1) {
-            candidates.push([
-              padding + Math.random() * (maxX - padding),
-              82 + Math.random() * (maxY - 82),
-            ]);
-          }
-
-          for (const [rawX, rawY] of candidates) {
-            const x = clamp(rawX, padding, maxX);
-            const y = clamp(rawY, 82, maxY);
-            const rect = candidateRect(x, y, width, height);
-            if (isSafe(rect, obstacles)) return { x, y, rect, safe: true };
-          }
-
-          const fallbackX = clamp(maxX - index * 98, padding, maxX);
-          const fallbackY = clamp(maxY - index * 8, 82, maxY);
-          return { x: fallbackX, y: fallbackY, rect: candidateRect(fallbackX, fallbackY, width, height), safe: false };
-        }
-
-        function placePets() {
-          const occupied = [];
-          pets.forEach((pet, index) => {
-            const position = findSafePosition(pet, index, occupied);
-            occupied.push(position.rect);
-            pet.style.setProperty("--pet-x", `${Math.round(position.x)}px`);
-            pet.style.setProperty("--pet-y", `${Math.round(position.y)}px`);
-            pet.classList.toggle("is-sheltered", !position.safe);
-          });
-        }
-
-        pets.forEach((pet, index) => {
-          pet.classList.remove("is-ready", "is-booped");
-          pet.style.setProperty("--wander-delay", `${index * -1.4}s`);
-          requestAnimationFrame(() => {
-            placePets();
-            pet.classList.add("is-ready");
-          });
-
-          pet.onclick = () => {
-            const reaction = pet.querySelector(".pet-reaction");
-            if (reaction) reaction.textContent = reactions[Math.floor(Math.random() * reactions.length)];
-            pet.classList.remove("is-booped");
-            void pet.offsetWidth;
-            pet.classList.add("is-booped");
-            window.setTimeout(() => pet.classList.remove("is-booped"), 680);
-          };
-        });
-
-        window.clearInterval(window.__petWanderTimer);
-        if (window.__petResizeHandler) window.removeEventListener("resize", window.__petResizeHandler);
-        window.__petWanderTimer = window.setInterval(placePets, 9000);
-        window.__petResizeHandler = placePets;
-        window.addEventListener("resize", window.__petResizeHandler, { passive: true });
-      }
 
       function initPageInteractions() {
         const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
@@ -242,7 +134,6 @@ const {
 
       document.addEventListener("astro:page-load", () => {
         initPageInteractions();
-        initWanderingPets();
       });
     </script>
   </body>

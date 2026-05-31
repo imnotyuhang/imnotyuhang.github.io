@@ -475,8 +475,8 @@ li + li {
   position: absolute;
   left: var(--pet-x, calc(100vw - 170px));
   top: var(--pet-y, calc(100vh - 170px));
-  width: 138px;
-  height: 140px;
+  width: 150px;
+  height: 160px;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -506,8 +506,8 @@ li + li {
 
 .pet-sticker {
   position: relative;
-  width: 138px;
-  height: 138px;
+  width: 150px;
+  height: 160px;
   margin: 0;
   animation: pet-wander 5.8s ease-in-out var(--wander-delay, 0s) infinite alternate;
   transition: transform 180ms ease;
@@ -535,8 +535,31 @@ li + li {
   filter: drop-shadow(0 12px 18px rgba(54, 45, 96, 0.18));
 }
 
+.pet-viewport {
+  display: block;
+  width: 120px;
+  height: 160px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.pet-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  background-size: 400% 100%;
+  filter: drop-shadow(0 12px 18px rgba(54, 45, 96, 0.18));
+}
+
 .pet-beagle .pet-image {
   transform: scale(0.95);
+  transform-origin: center bottom;
+}
+
+.pet-beagle .pet-sprite {
+  transform: scale(1.03);
   transform-origin: center bottom;
 }
 

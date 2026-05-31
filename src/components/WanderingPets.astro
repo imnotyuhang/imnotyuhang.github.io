@@ -7,9 +7,24 @@ const pets = petsConfig.filter((pet) => pet.enabled);
 <div class="pet-playground" data-pet-playground>
   <div class="pet-corner">
     {pets.map((pet) => (
-      <button class:list={["wander-pet", `pet-${pet.id}`]} type="button" data-wander-pet data-pet-id={pet.id} data-animal={pet.species} aria-label={`${pet.name} sticker`}>
+      <button
+        class:list={["wander-pet", `pet-${pet.id}`]}
+        type="button"
+        data-wander-pet
+        data-pet-id={pet.id}
+        data-animal={pet.species}
+        data-pet-config={JSON.stringify({
+          sprite: pet.sprite,
+          actions: pet.actions,
+        })}
+        aria-label={`${pet.name} sticker`}
+      >
         <span class="pet-sticker">
-          {pet.asset ? (
+          {pet.sprite?.src ? (
+            <span class="pet-viewport" aria-hidden="true">
+              <span class="pet-sprite" style={`background-image: url("${pet.sprite.src}");`}></span>
+            </span>
+          ) : pet.asset ? (
             <img class="pet-image" src={pet.asset} alt="" loading="eager" />
           ) : pet.id === "calico" ? (
             <svg class="pet-svg" viewBox="0 0 150 150" role="presentation">
