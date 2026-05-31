@@ -8,7 +8,6 @@ interface Props {
   title: string;
   description?: string;
   active?: "home" | "categories" | "archive" | "about";
-  detail?: boolean;
   contentClass?: string;
 }
 
@@ -16,7 +15,6 @@ const {
   title,
   description = "Yuhang Wu's personal web space for AI/data projects, notes, thoughts, and fragments of life.",
   active = "home",
-  detail = false,
   contentClass = "",
 } = Astro.props;
 ---
@@ -43,7 +41,7 @@ const {
       <span class="sr-only">Menu</span>
     </button>
 
-    <div class:list={["site-shell", detail && "detail-shell"]}>
+    <div class="site-shell">
       <Sidebar active={active} />
       <main class:list={["content", contentClass]} id="main">
         <slot />

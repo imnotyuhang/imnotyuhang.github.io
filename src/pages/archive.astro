@@ -15,7 +15,7 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 ---
 
 <BaseLayout title="Archive | Yuhang Wu" active="archive">
-  <TopBar label="Home › Archive" searchable />
+  <TopBar crumbs={[{ label: "Home", href: "/" }, { label: "Archive" }]} searchable />
 
   <section class="directory-section" aria-labelledby="archive-title">
     <div class="section-heading compact-heading">

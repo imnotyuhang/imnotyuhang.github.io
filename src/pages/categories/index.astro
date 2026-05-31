@@ -9,7 +9,7 @@ const categories = getCategories();
 ---
 
 <BaseLayout title="Categories | Yuhang Wu" active="categories">
-  <TopBar label="Home › Categories" searchable />
+  <TopBar crumbs={[{ label: "Home", href: "/" }, { label: "Categories" }]} searchable />
 
   <section class="directory-section" aria-labelledby="categories-title">
     <div class="section-heading compact-heading">

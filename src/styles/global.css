@@ -140,11 +140,6 @@ li + li {
   pointer-events: auto;
 }
 
-.detail-shell {
-  grid-template-columns: var(--sidebar-width) minmax(0, 900px);
-  justify-content: center;
-}
-
 .sidebar {
   position: sticky;
   top: 28px;
@@ -268,6 +263,65 @@ li + li {
   padding: 0.5rem 0.7rem 0.5rem 1rem;
   color: var(--muted);
   backdrop-filter: blur(16px);
+}
+
+.breadcrumbs {
+  min-width: 0;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  color: var(--muted);
+}
+
+.breadcrumbs li:last-child {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.breadcrumbs li + li::before {
+  content: "›";
+  margin-right: 0.35rem;
+  color: var(--faint);
+}
+
+.breadcrumbs a {
+  display: inline-block;
+  border-radius: 6px;
+  color: var(--muted);
+  padding: 0.18rem 0.22rem;
+  transition: background 160ms ease, color 160ms ease;
+  white-space: nowrap;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+  background: rgba(230, 111, 169, 0.1);
+  color: var(--accent-ink);
+}
+
+.breadcrumbs span {
+  display: inline-block;
+  min-width: 0;
+  max-width: 30ch;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
 }
 
 .search-box {
@@ -1209,6 +1263,7 @@ li + li {
 }
 
 .detail-article {
+  margin-top: 46px;
   padding: clamp(1.25rem, 4vw, 2.5rem);
 }
 
@@ -1218,7 +1273,7 @@ li + li {
 }
 
 .detail-hero h2 {
-  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  font-size: clamp(2rem, 4vw, 3.35rem);
 }
 
 .detail-actions {
@@ -1316,9 +1371,6 @@ li + li {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .detail-shell {
-    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
-  }
 }
 
 @media (max-width: 860px) {
@@ -1326,8 +1378,7 @@ li + li {
     backdrop-filter: blur(10px);
   }
 
-  .site-shell,
-  .detail-shell {
+  .site-shell {
     display: block;
     width: 100%;
     padding: 14px;
@@ -1420,6 +1471,14 @@ li + li {
   .top-bar {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .breadcrumbs li:not(:first-child):not(:last-child) {
+    display: none;
+  }
+
+  .breadcrumbs span {
+    max-width: 24ch;
   }
 
   .search-box {

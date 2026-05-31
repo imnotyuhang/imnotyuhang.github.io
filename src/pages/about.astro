@@ -11,7 +11,7 @@ const selected = entries.filter((entry) => entry.data.featured).slice(0, 3);
 ---
 
 <BaseLayout title="About | Yuhang Wu" active="about" contentClass="detail-content">
-  <TopBar label="Home › About" />
+  <TopBar crumbs={[{ label: "Home", href: "/" }, { label: "About" }]} />
   <article class="detail-article">
     <header class="detail-hero">
       <p class="section-label">About</p>

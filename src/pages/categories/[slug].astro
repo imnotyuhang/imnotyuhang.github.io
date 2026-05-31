@@ -21,7 +21,7 @@ const categoryEntries = entries.filter((entry) => slugs.includes(entry.data.cate
 ---
 
 <BaseLayout title={`${category.title} | Yuhang Wu`} active="categories">
-  <TopBar label={`Home › Categories › ${category.title}`} searchable />
+  <TopBar crumbs={[{ label: "Home", href: "/" }, { label: "Categories", href: "/categories/" }, { label: category.title }]} searchable />
 
   <section class="feed-section" aria-labelledby="category-title">
     <div class="section-heading compact-heading">

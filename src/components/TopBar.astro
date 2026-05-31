@@ -1,14 +1,28 @@
 ---
 interface Props {
-  label: string;
+  crumbs: {
+    label: string;
+    href?: string;
+  }[];
   searchable?: boolean;
 }
 
-const { label, searchable = false } = Astro.props;
+const { crumbs, searchable = false } = Astro.props;
 ---
 
 <header class="top-bar" aria-label="Page context">
-  <span>{label}</span>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      {crumbs.map((crumb, index) => {
+        const isCurrent = index === crumbs.length - 1;
+        return (
+          <li>
+            {crumb.href && !isCurrent ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current={isCurrent ? "page" : undefined}>{crumb.label}</span>}
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
   {searchable && (
     <label class="search-box">
       <span class="sr-only">Search entries</span>
