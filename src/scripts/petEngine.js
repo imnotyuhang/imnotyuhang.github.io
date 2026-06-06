@@ -9,7 +9,7 @@ const obstacleSelector = [
   ".life-panel",
 ].join(",");
 
-const reactions = ["♡", "boop", "jump", "hi", "✦"];
+const reactions = ["heart", "boop", "jump", "hi", "spark"];
 const ambientActions = ["idle", "lick", "stretch"];
 
 function clamp(value, min, max) {

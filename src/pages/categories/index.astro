@@ -26,7 +26,7 @@ const categories = getCategories();
               <strong>{category.title}</strong>
               <small>{categoryEntryCount(category, entries)} posts</small>
             </span>
-            <span aria-hidden="true">›</span>
+            <span aria-hidden="true">&gt;</span>
           </a>
           {category.children && category.children.length > 0 && (
             <div class="category-children">
@@ -37,7 +37,7 @@ const categories = getCategories();
                     <strong>{child.title}</strong>
                     <small>{categoryEntryCount(child, entries)} posts</small>
                   </span>
-                  <span aria-hidden="true">›</span>
+                  <span aria-hidden="true">&gt;</span>
                 </a>
               ))}
             </div>
