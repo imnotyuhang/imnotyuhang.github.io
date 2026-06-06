@@ -2,18 +2,19 @@
 import { ClientRouter } from "astro:transitions";
 import Sidebar from "../components/Sidebar.astro";
 import WanderingPets from "../components/WanderingPets.astro";
+import { siteConfig, type ActiveNav } from "../config/site";
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
-  active?: "home" | "categories" | "archive" | "about";
+  active?: ActiveNav;
   contentClass?: string;
 }
 
 const {
   title,
-  description = "Yuhang Wu's personal web space for AI/data projects, notes, thoughts, and fragments of life.",
+  description = siteConfig.description,
   active = "home",
   contentClass = "",
 } = Astro.props;
@@ -26,9 +27,9 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" href="/assets/site-background.jpg" />
-    <link rel="preload" as="image" href="/assets/yuhang.jpg" />
+    <link rel="icon" href={siteConfig.assets.favicon} type="image/svg+xml" />
+    <link rel="preload" as="image" href={siteConfig.assets.background} />
+    <link rel="preload" as="image" href={siteConfig.assets.portrait} />
     <ClientRouter />
   </head>
   <body>

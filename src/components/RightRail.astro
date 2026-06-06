@@ -1,22 +1,15 @@
 ---
 import type { SiteEntry } from "../lib/content";
-import { categoryEntryCount, categoryHref, entryHref, entryUpdatedDate, getCategories } from "../lib/content";
+import { categoryEntryCount, categoryHref, entryHref, getCategories, getRecentUpdatedEntries } from "../lib/content";
+import { siteConfig } from "../config/site";
 
 interface Props {
   entries: SiteEntry[];
 }
 
 const { entries } = Astro.props;
-const recent = [...entries].sort((a, b) => entryUpdatedDate(b).getTime() - entryUpdatedDate(a).getTime()).slice(0, 4);
+const recent = getRecentUpdatedEntries(entries, siteConfig.rightRail.recentLimit);
 const categories = getCategories();
-const filters = ["All", "Projects", "Notes", "Life", "AI", "Vision", "Robotics"];
-const filterValue = (label: string) => {
-  if (label === "All") return "all";
-  if (label === "Projects") return "project";
-  if (label === "Notes") return "note";
-  if (label === "Life") return "life";
-  return label.toLowerCase();
-};
 ---
 
 <aside class="right-rail" aria-label="Site metadata">
@@ -39,9 +32,9 @@ const filterValue = (label: string) => {
   <section class="rail-card">
     <h2>Quick Filters</h2>
     <div class="filter-tags" data-filter-tags>
-      {filters.map((label) => (
-        <button type="button" class:list={[label === "All" && "is-active"]} data-filter={filterValue(label)}>
-          {label}
+      {siteConfig.rightRail.filters.map((filter) => (
+        <button type="button" class:list={[filter.value === "all" && "is-active"]} data-filter={filter.value}>
+          {filter.label}
         </button>
       ))}
     </div>

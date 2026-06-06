@@ -1,40 +1,33 @@
 ---
+import { siteConfig, type ActiveNav } from "../config/site";
+import profile from "../../content/resume/profile.json";
+
 interface Props {
-  active?: "home" | "categories" | "archive" | "about";
+  active?: ActiveNav;
 }
 
 const { active = "home" } = Astro.props;
-
-const nav = [
-  { id: "home", href: "/", label: "Home" },
-  { id: "categories", href: "/categories/", label: "Categories" },
-  { id: "archive", href: "/archive/", label: "Archive" },
-  { id: "about", href: "/about/", label: "About" },
-];
 ---
 
 <aside class="sidebar" id="sidebar" aria-label="Site sidebar" data-sidebar>
-  <a class="profile-photo-link" href="/" aria-label="Yuhang's Web Space home">
-    <img class="profile-photo" src="/assets/yuhang.jpg" alt="Yuhang Wu" />
+  <a class="profile-photo-link" href="/" aria-label={`${siteConfig.title} home`}>
+    <img class="profile-photo" src={siteConfig.assets.portrait} alt={profile.name} />
   </a>
   <div class="profile-copy">
-    <p class="profile-kicker">Personal web space</p>
-    <h1><a href="/">Yuhang Wu</a></h1>
-    <p>
-      I build AI/data systems, write about things I am learning, and collect projects,
-      thoughts, and fragments of life here.
-    </p>
+    <p class="profile-kicker">{siteConfig.sidebar.kicker}</p>
+    <h1><a href="/">{profile.name}</a></h1>
+    <p>{siteConfig.sidebar.intro}</p>
   </div>
 
   <nav class="side-nav" aria-label="Main navigation">
-    {nav.map((item) => (
+    {siteConfig.nav.map((item) => (
       <a class:list={[active === item.id && "is-active"]} href={item.href}>{item.label}</a>
     ))}
   </nav>
 
   <div class="sidebar-actions" aria-label="Contact links">
-    <a href="mailto:yuhangywu@gmail.com">Email</a>
-    <a href="https://www.linkedin.com/in/yuhang-wu-146749320" target="_blank" rel="noreferrer">LinkedIn</a>
-    <a href="/assets/YUHANG_CV_SG.pdf" target="_blank" rel="noreferrer">CV</a>
+    <a href={`mailto:${profile.email}`}>Email</a>
+    <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+    <a href={profile.cv} target="_blank" rel="noreferrer">CV</a>
   </div>
 </aside>

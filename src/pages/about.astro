@@ -3,11 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TopBar from "../components/TopBar.astro";
 import EntryCard from "../components/EntryCard.astro";
 import ResumeSection from "../components/ResumeSection.astro";
-import { getAllPublishedEntries } from "../lib/content";
+import { getAllPublishedEntries, getFeaturedEntries } from "../lib/content";
 import profile from "../../content/resume/profile.json";
 
 const entries = await getAllPublishedEntries();
-const selected = entries.filter((entry) => entry.data.featured).slice(0, 3);
+const selected = getFeaturedEntries(entries, 3);
 ---
 
 <BaseLayout title="About | Yuhang Wu" active="about" contentClass="detail-content">

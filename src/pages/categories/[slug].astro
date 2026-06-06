@@ -3,12 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import TopBar from "../../components/TopBar.astro";
 import EntryCard from "../../components/EntryCard.astro";
 import RightRail from "../../components/RightRail.astro";
-import { childCategorySlugs, getAllPublishedEntries, getCategories } from "../../lib/content";
+import { flattenCategories, getAllPublishedEntries, getCategories, getEntriesForCategory } from "../../lib/content";
 
 export async function getStaticPaths() {
   const categories = getCategories();
-  const flatten = (items) => items.flatMap((item) => [item, ...flatten(item.children ?? [])]);
-  return flatten(categories).map((category) => ({
+  return flattenCategories(categories).map((category) => ({
     params: { slug: category.slug },
     props: { category },
   }));
@@ -16,8 +15,7 @@ export async function getStaticPaths() {
 
 const { category } = Astro.props;
 const entries = await getAllPublishedEntries();
-const slugs = [category.slug, ...childCategorySlugs(category.slug)];
-const categoryEntries = entries.filter((entry) => slugs.includes(entry.data.category));
+const categoryEntries = getEntriesForCategory(category, entries);
 ---
 
 <BaseLayout title={`${category.title} | Yuhang Wu`} active="categories">
